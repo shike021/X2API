@@ -1,4 +1,9 @@
 from fastapi import WebSocket, APIRouter
+from app.base.logger import get_module_logger
+from app.core.config import config
+
+
+logger = get_module_logger(__name__)
 
 router = APIRouter()
 

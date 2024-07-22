@@ -8,17 +8,17 @@ from app.rpc.methods import rpc_router
 from app.websocket.handlers import router as websocket_router
 from app.db.base import Base
 from app.db.session import engine
-from app.base.logger import initialize_logger, create_logger
+from app.base.logger import configure_logging
+from app.core.config import config
+
 
 app = FastAPI()
 
-logger = create_logger(
-    log_dir="./logs",
-    log_filename="app.log", # 从配置文件读取
-    max_bytes=10485760,     # 10 MB
-    backup_count=10,
-    level=logging.DEBUG     # Set the logging level
-)
+# 配置logger
+configure_logging(log_level = logging.DEBUG,
+                  log_file = config.get('log', 'log_file'),
+                  log_dir = config.get('log', 'log_dir'))
+logger = logging.getLogger(__name__)
 
 # RESTful API
 app.include_router(api_router, prefix="/api/v1")

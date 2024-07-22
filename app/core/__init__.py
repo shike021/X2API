@@ -1,4 +1,4 @@
 # src/core/__init__.py
 
-from .config import settings
+from .config import *
 
